@@ -1,4 +1,4 @@
-package backend.geometry;
+package be.ac.umons.backend.geometry;
 
 public abstract class Segment {
 
