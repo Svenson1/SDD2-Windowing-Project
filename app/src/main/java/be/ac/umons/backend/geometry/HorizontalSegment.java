@@ -2,7 +2,7 @@ package be.ac.umons.backend.geometry;
 
 /**
  * Horizontal segment, with the y constant
- * With stock the left extremity in the PST
+ * We stock the left extremity in the PST
  */
 public class HorizontalSegment extends Segment{
 
