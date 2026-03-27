@@ -9,7 +9,7 @@ public class Point {
 
     /**
      *
-     * @param x coordonée en x
+     * @param x coordonnée en x
      * @param y coordonnée en y
      */
     public Point(double x, double y) {
