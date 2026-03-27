@@ -33,7 +33,7 @@ public class PST {
             root = null;
             return;
         }
-        //tri des points en fonction de y et en fonction de x si les points sont egaux
+        //tri des points en fonction de y et en fonction de x si les points sont egaux (methode composite numbers)
         // ce tri est en O(nlogn), java utilise TimSort
         segments.sort(
                 Comparator
@@ -43,13 +43,20 @@ public class PST {
         root = buildRecursive(segments);
     }
 
+    /**
+     * recursive methode to create the PST from a list of segment
+     * that are sorted by the y coordinate of the point that is to stored
+     * @param segments sorted list of segments
+     * @return the root note corresponding at the point with the minimum x coordinate
+     */
     private PstNode buildRecursive(List<Segment> segments) {
         if (segments.isEmpty()) return null;
 
         // 1. trouver xMin en O(n)
         Segment xMin = segments.get(0);
+        // comparaison avec methode composite number pour trouvre le plus petit x
         for (Segment s : segments) {
-            if (s.getStoredPoint().getX() < xMin.getStoredPoint().getX()) {
+            if (s.getStoredPoint().getX() < xMin.getStoredPoint().getX() || (s.getStoredPoint().getX() == xMin.getStoredPoint().getX() && s.getStoredPoint().getY() < xMin.getStoredPoint().getY())) {
                 xMin = s;
             }
         }
@@ -58,7 +65,7 @@ public class PST {
         List<Segment> remaining = new ArrayList<>(segments);
         remaining.remove(xMin);
 
-        // 3. cas feuille
+        // 3. cas d'une feuille
         if (remaining.isEmpty()) {
             return new PstNode(xMin, xMin.getStoredPoint().getY());
         }
@@ -70,8 +77,8 @@ public class PST {
         // 5. split, en se servant de l'index car les segments sont trié en fonction des y
         List<Segment> below = new ArrayList<>(remaining.subList(0, mid + 1));
         List<Segment> above = new ArrayList<>(remaining.subList(mid + 1, remaining.size()));
-
-        // 6. construire noeud
+        //--> pas de risque d'index out of band car subList(1,1) renvoie une liste vide
+        // 6. construire le noeud
         PstNode node = new PstNode(xMin, yMid);
 
         node.setLeft(buildRecursive(below));
