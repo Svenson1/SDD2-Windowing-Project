@@ -29,4 +29,14 @@ public class Window {
     public boolean isValid(){
         return xMin < xMax && yMin < yMax;
     }
+
+    @Override
+    public String toString() {
+        return "Window{" +
+                "xMin=" + xMin +
+                ", xMax=" + xMax +
+                ", yMin=" + yMin +
+                ", yMax=" + yMax +
+                '}';
+    }
 }
