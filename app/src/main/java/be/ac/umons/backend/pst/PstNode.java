@@ -5,21 +5,17 @@ import be.ac.umons.backend.geometry.Segment;
 
 /**
  * Node of a PST
- * Store a point with is (px, py) coordinate ,
- * the separation value yMid for the subtree,
- * and a link to the original segment
+ * Store a segment and the separation value yMid for the subtree
  */
 public class PstNode {
-    /**
-     * Point stocked in this node (the one with the minimum x)
-     */
-    private final Point point;
+
     /**
      * Separation value of the y coordinates
      */
     private final double yMid;
+
     /**
-     * link to the original segment
+     * Segment stored in this node
      */
     private final Segment segment;
 
@@ -27,46 +23,58 @@ public class PstNode {
      * left subtree
      */
     private PstNode left;
+
     /**
      * right subtree
      */
     private PstNode right;
 
     /**
-     *
-     * @param point the Point that is going to be stored in the node
-     * @param yMid the separation value for the y coordinates
-     * @param segment the original segment
+     * COnstructor
+     * @param segment segment to store
+     * @param yMid
      */
-    public PstNode(Point point, double yMid, Segment segment) {
-        this.point = point;
-        this.yMid = yMid;
+    public PstNode(Segment segment, double yMid) {
         this.segment = segment;
-        this.left = null;
-        this.right = null;
+        this.yMid = yMid;
     }
 
     public void setLeft(PstNode left) {
         this.left = left;
     }
+
     public void setRight(PstNode right) {
         this.right = right;
     }
+
     public PstNode getLeft() {
         return left;
     }
+
     public PstNode getRight() {
         return right;
     }
+
+    /**
+     * Return the stored point (derived from the segment)
+     */
     public Point getPoint() {
-        return point;
+        return segment.getStoredPoint();
     }
+
     public Segment getSegment() {
         return segment;
     }
+
     public double getYMid() {
         return yMid;
     }
 
-
+    @Override
+    public String toString() {
+        return "Node{" +
+                "point=" + getPoint() +
+                ", yMid=" + yMid +
+                '}';
+    }
 }
