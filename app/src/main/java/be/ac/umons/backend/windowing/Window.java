@@ -1,0 +1,32 @@
+package be.ac.umons.backend.windowing;
+/**
+ * Represents a rectangular query window defined by its bounds
+ * in the Cartesian plane: [xMin, xMax] × [yMin, yMax].
+ *
+ */
+public class Window {
+    public final double xMin, xMax, yMin, yMax;
+    
+    /**
+     * Constructs a rectangular window from four boundary values.
+     *
+     * @param xMin lower bound on the x-axis (xMin)
+     * @param xMax lower bound on the y-axis (yMin)
+     * @param yMin upper bound on the x-axis (xMax)
+     * @param yMax upper bound on the y-axis (yMax)
+     */
+    public Window(double xMin, double xMax, double yMin, double yMax) {
+        this.xMin = xMin;
+        this.xMax = xMax;
+        this.yMin = yMin;
+        this.yMax = yMax;
+    }
+
+    /**
+     * cheks whether this window is geometrically valid
+     * @return True if its true False otherwise
+     */
+    public boolean isValid(){
+        return xMin < xMax && yMin < yMax;
+    }
+}
