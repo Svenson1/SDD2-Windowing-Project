@@ -3,12 +3,26 @@
  */
 package be.ac.umons;
 
-public class TestWindowing {
+import be.ac.umons.frontend.WindowingController;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class TestWindowing extends Application {
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
-        System.out.println(new TestWindowing().getGreeting());
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        WindowingController controller = new WindowingController(primaryStage);
+        Scene scene = new Scene(controller.buildUI(), 950, 580);
+        primaryStage.setTitle("Windowing — Priority Search Tree");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
