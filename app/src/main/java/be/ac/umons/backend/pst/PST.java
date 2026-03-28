@@ -159,8 +159,7 @@ public abstract class PST {
      * @param sortMax upper bound on sort coordinate
      * @param res     list to add results to
      */
-    private void queryPst(PstNode root, double heapMin, double heapMax,
-                          double sortMin, double sortMax, List<Segment> res) {
+    private void queryPst(PstNode root, double heapMin, double heapMax, double sortMin, double sortMax, List<Segment> res) {
         if (root == null) return;
 
         // phase 1 : descend to vSplit
@@ -215,8 +214,7 @@ public abstract class PST {
      * @param heapMax upper bound on heap coordinate
      * @param res     list to add results to
      */
-    private void reportInSubTree(PstNode root, double heapMin, double heapMax,
-                                 List<Segment> res) {
+    private void reportInSubTree(PstNode root, double heapMin, double heapMax, List<Segment> res) {
         if (root == null) return;
         Segment s = root.getSegment();
         if (getHeapCoord(s) <= heapMax) {

@@ -18,7 +18,7 @@ class PSTTest {
 
     @BeforeEach
     void setUp() {
-        pst = new PST();
+        pst = new PstH();
         segments = new ArrayList<>();
 
         // Exemple simple : 5 segments horizontaux
