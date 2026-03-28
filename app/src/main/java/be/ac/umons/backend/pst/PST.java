@@ -87,4 +87,61 @@ public class PST {
         return node;
     }
 
+    public List<Segment> query(long xMin, long xMax, long yMin, long yMax) {
+        List<Segment> res = new ArrayList<>();
+        queryPst(root, xMin, xMax, yMin, yMax, res);
+        return res;
+    }
+
+    private void queryPst(PstNode root, long xMin, long xMax, long yMin, long yMax, List<Segment> res) {
+        if (root == null) return;
+
+        // phase 1 descendre jusqu'a vSplit ==> noeud auquel yMin et yMax se séparent
+        PstNode vSplit;
+        while (root != null) {
+            testAndReport(root, xMin, xMax, yMin, yMax, res);
+            if ( yMin <= root.getYMid() && yMax <= root.getYMid()) {
+                root = root.getLeft();
+            } else if (yMin > root.getYMid() && yMax > root.getYMid()) {
+                root = root.getRight();
+            }else {
+                break;
+            }
+        }
+
+        vSplit = root;
+        if (vSplit == null) return;
+
+        //phase 2 : descendre vers yMin :
+        PstNode v = vSplit.getLeft();
+
+        while (v != null) {
+            testAndReport(v, xMin, xMax, yMin, yMax, res);
+            if (v.getYMid() < yMin) {
+                v = v.getRight();
+            }else if (v.getYMid() >= yMin) {
+                reportInSubTree(v.getRight(), xMin, xMax, res);
+                v = v.getLeft();
+            }
+        }
+
+        //phase 3 : descendre vers yMax:
+        v = vSplit.getRight();
+        while (v != null) {
+            testAndReport(v, xMin, xMax, yMin, yMax, res);
+            if(v.getYMid() < yMax) {
+                reportInSubTree(v.getLeft(), xMin, xMax, res);
+                v = v.getRight();
+            }
+            else if (v.getYMid() >= yMax) {
+                v = v.getLeft();
+            }
+        }
+    }
+
+    private void reportInSubTree(PstNode right, long xMin, long xMax, List<Segment> res) {
+    }
+
+    private void testAndReport(PstNode root, long xMin, long xMax, long yMin, long yMax, List<Segment> res) {}
+
 }
