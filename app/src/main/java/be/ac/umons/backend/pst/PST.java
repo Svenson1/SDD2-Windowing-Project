@@ -6,7 +6,6 @@ import be.ac.umons.backend.geometry.Segment;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Priority search tree,
@@ -87,13 +86,13 @@ public class PST {
         return node;
     }
 
-    public List<Segment> query(long xMin, long xMax, long yMin, long yMax) {
+    public List<Segment> query(double xMin, double xMax, double yMin, double yMax) {
         List<Segment> res = new ArrayList<>();
         queryPst(root, xMin, xMax, yMin, yMax, res);
         return res;
     }
 
-    private void queryPst(PstNode root, long xMin, long xMax, long yMin, long yMax, List<Segment> res) {
+    private void queryPst(PstNode root, double xMin, double xMax, double yMin, double yMax, List<Segment> res) {
         if (root == null) return;
 
         // phase 1 descendre jusqu'a vSplit ==> noeud auquel yMin et yMax se séparent
@@ -139,9 +138,24 @@ public class PST {
         }
     }
 
-    private void reportInSubTree(PstNode right, long xMin, long xMax, List<Segment> res) {
+    private void reportInSubTree(PstNode root, double xMin, double xMax, List<Segment> res) {
+        if (root == null) return;
+        Point p = root.getPoint();
+        Point other = root.getSegment().getOtherPoint();
+        if (p.getX() <= xMax){
+            if (other.getX() >= xMin) {res.add(root.getSegment());}
+            reportInSubTree(root.getLeft(), xMin, xMax, res);
+            reportInSubTree(root.getRight(), xMin, xMax, res);
+        }
     }
 
-    private void testAndReport(PstNode root, long xMin, long xMax, long yMin, long yMax, List<Segment> res) {}
+    private void testAndReport(PstNode root, double xMin, double xMax, double yMin, double yMax, List<Segment> res) {
+        if (root == null) return;
+        Point p = root.getPoint();
+        Point other = root.getSegment().getOtherPoint();
+        if (p.getX() <= xMax && other.getX() >= xMin && p.getY() <= yMax && p.getY() >= yMin) {
+            res.add(root.getSegment());
+        }
+    }
 
 }
