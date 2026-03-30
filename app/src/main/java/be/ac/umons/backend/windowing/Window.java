@@ -10,10 +10,10 @@ public class Window {
     /**
      * Constructs a rectangular window from four boundary values.
      *
-     * @param xMin lower bound on the x-axis (xMin)
-     * @param xMax lower bound on the y-axis (yMin)
-     * @param yMin upper bound on the x-axis (xMax)
-     * @param yMax upper bound on the y-axis (yMax)
+     * @param xMin lower bound on the x-axis
+     * @param xMax upper bound on the x-axis
+     * @param yMin lower bound on the y-axis
+     * @param yMax upper bound on the y-axis
      */
     public Window(double xMin, double xMax, double yMin, double yMax) {
         this.xMin = xMin;
