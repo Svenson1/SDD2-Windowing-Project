@@ -6,6 +6,7 @@ import be.ac.umons.backend.geometry.Segment;
 import be.ac.umons.backend.geometry.VerticalSegment;
 import be.ac.umons.backend.pst.PST;
 import be.ac.umons.backend.windowing.Window;
+import be.ac.umons.backend.windowing.WindowerEngine;
 import be.ac.umons.utils.SegmentFileParser;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
@@ -28,9 +29,9 @@ public class WindowingController
 {
     // model
     private final Stage stage;
-    private final PST pst = new PST();
-    private List<HorizontalSegment> horizontalSegments;
-    private List<VerticalSegment> verticalSegments;
+    private WindowerEngine windowerEngine;
+    private List<Segment> horizontalSegments;
+    private List<Segment> verticalSegments;
     private Window boundingWindow;
     
     // UI
@@ -118,7 +119,7 @@ public class WindowingController
             horizontalSegments = result.horizontalSegments;
             verticalSegments = result.verticalSegments;
             boundingWindow = result.boundingWindow;
-            // creation des pst
+            windowerEngine = new WindowerEngine(horizontalSegments, verticalSegments);
 
             
             statusLabel.setText(" segments loaded.");
@@ -130,7 +131,7 @@ public class WindowingController
     }
     
     
-    private void displaySegments(List<HorizontalSegment> horizontalSegments, List<VerticalSegment> verticalSegments, Window queryWindow) {
+    private void displaySegments(List<Segment> horizontalSegments, List<Segment> verticalSegments, Window queryWindow) {
         if (horizontalSegments == null || verticalSegments == null ||boundingWindow == null) {
             statusLabel.setText("No segments loaded");
             return;
@@ -169,10 +170,10 @@ public class WindowingController
 
         gc.setStroke(Color.TOMATO);
         gc.setLineWidth(1.5);
-        for (HorizontalSegment hs : horizontalSegments) {
+        for (Segment hs : horizontalSegments) {
             drawSegment(gc, bw, offsetX, offsetY, hs.getP1(), hs.getP2(), scale);
         }
-        for (VerticalSegment vs : verticalSegments) {
+        for (Segment vs : verticalSegments) {
             drawSegment(gc, bw, offsetX, offsetY, vs.getP1(), vs.getP2(), scale);
         }
     }

@@ -2,6 +2,7 @@ package be.ac.umons.utils;
 
 import be.ac.umons.backend.geometry.HorizontalSegment;
 import be.ac.umons.backend.geometry.Point;
+import be.ac.umons.backend.geometry.Segment;
 import be.ac.umons.backend.geometry.VerticalSegment;
 import be.ac.umons.backend.windowing.Window;
 
@@ -17,11 +18,11 @@ public class SegmentFileParser {
      */
     public static class ParseResult{
         // ajout de la fenetre
-        public final List<HorizontalSegment> horizontalSegments;
-        public final List<VerticalSegment> verticalSegments;
+        public final List<Segment> horizontalSegments;
+        public final List<Segment> verticalSegments;
         public final Window boundingWindow;
         
-        public ParseResult(List<HorizontalSegment> hs, List<VerticalSegment> vs, Window bw) {
+        public ParseResult(List<Segment> hs, List<Segment> vs, Window bw) {
             this.horizontalSegments = hs;
             this.verticalSegments = vs;
             this.boundingWindow = bw;
@@ -29,8 +30,8 @@ public class SegmentFileParser {
     }
     
     public static ParseResult parse(File file) throws Exception{
-        List<HorizontalSegment> horizontalSegments = new ArrayList<>();
-        List<VerticalSegment> verticalSegments = new ArrayList<>();
+        List<Segment> horizontalSegments = new ArrayList<>();
+        List<Segment> verticalSegments = new ArrayList<>();
         Window boundingWindow = null;
         
         try(BufferedReader br = new BufferedReader(new FileReader(file))) {
