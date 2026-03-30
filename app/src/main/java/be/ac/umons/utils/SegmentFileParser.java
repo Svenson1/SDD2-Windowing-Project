@@ -52,9 +52,9 @@ public class SegmentFileParser {
                         } else {
                             Point p1 = new Point(a,b);
                             Point p2 = new Point(c,d);
-                            if (a  == c){ // horizontal segment
+                            if (b  == d){ // horizontal segment
                                 horizontalSegments.add(new HorizontalSegment(p1, p2));
-                            } else if (b == d) {
+                            } else if (a == c) {
                                 verticalSegments.add(new VerticalSegment(p1, p2));
                             }
                         }
