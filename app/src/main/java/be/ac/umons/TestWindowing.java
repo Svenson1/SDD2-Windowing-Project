@@ -21,6 +21,7 @@ public class TestWindowing extends Application {
     public void start(Stage primaryStage) throws Exception {
         WindowingController controller = new WindowingController(primaryStage);
         Scene scene = new Scene(controller.buildUI(), 950, 580);
+        scene.getStylesheets().add(getClass().getResource("/be/ac/umons/frontend/style.css").toExternalForm());
         primaryStage.setTitle("Windowing — Priority Search Tree");
         primaryStage.setScene(scene);
         primaryStage.show();

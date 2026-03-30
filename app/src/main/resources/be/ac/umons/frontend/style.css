@@ -1,0 +1,205 @@
+/* =========================================================
+   Windowing PST — Dark Tech Theme
+   ========================================================= */
+
+/* ── Palette ── */
+.root {
+    -fx-base: #1a1d2e;
+    -fx-background: #1a1d2e;
+    -fx-control-inner-background: #252840;
+    -fx-accent: #5e81f4;
+
+    base-bg:        #1a1d2e;
+    surface:        #252840;
+    surface-raised: #2e3257;
+    border-color:   #3a3f6b;
+    accent:         #5e81f4;
+    accent-glow:    #5e81f455;
+    accent-alt:     #f4a25e;
+    text-primary:   #e8eaf6;
+    text-secondary: #8b90b8;
+    danger:         #f46e5e;
+
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+}
+
+/* ── Root / Scene ── */
+.root {
+    -fx-background-color: derive(#1a1d2e, 0%);
+}
+
+/* ── BorderPane / VBox panels ── */
+.border-pane {
+    -fx-background-color: #1a1d2e;
+}
+
+/* ── Control Panel (VBox gauche) ── */
+.vbox {
+    -fx-background-color: #20233a;
+    -fx-border-color: #3a3f6b;
+    -fx-border-width: 0 1 0 0;
+}
+
+/* ── Buttons ── */
+.button {
+    -fx-background-color: #2e3257;
+    -fx-text-fill: #c5c8e8;
+    -fx-border-color: #3a3f6b;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 7 14 7 14;
+    -fx-cursor: hand;
+    -fx-font-family: "Consolas", monospace;
+    -fx-font-size: 12px;
+    -fx-letter-spacing: 0.5;
+}
+
+.button:hover {
+    -fx-background-color: #5e81f4;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #5e81f4;
+    -fx-effect: dropshadow(gaussian, #5e81f488, 10, 0.4, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: #4a6ad4;
+    -fx-effect: dropshadow(gaussian, #5e81f466, 4, 0.2, 0, 0);
+}
+
+/* Bouton Load — accent chaud */
+.button-load {
+    -fx-background-color: #2e3a52;
+    -fx-border-color: #5e9ef4;
+    -fx-text-fill: #5e9ef4;
+}
+
+.button-load:hover {
+    -fx-background-color: #5e9ef4;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, #5e9ef488, 12, 0.5, 0, 0);
+}
+
+/* ── TextFields ── */
+.text-field {
+    -fx-background-color: #1a1d2e;
+    -fx-border-color: #3a3f6b;
+    -fx-border-width: 1;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-text-fill: #e8eaf6;
+    -fx-prompt-text-fill: #4a4f7a;
+    -fx-padding: 4 8 4 8;
+    -fx-font-family: "Consolas", monospace;
+}
+
+.text-field:focused {
+    -fx-border-color: #5e81f4;
+    -fx-effect: dropshadow(gaussian, #5e81f455, 6, 0.3, 0, 0);
+    -fx-background-color: #1f2240;
+}
+
+/* ── Labels ── */
+.label {
+    -fx-text-fill: #8b90b8;
+    -fx-font-family: "Consolas", monospace;
+    -fx-font-size: 11px;
+}
+
+/* Status label */
+.label-status {
+    -fx-text-fill: #5e81f4;
+    -fx-font-size: 11px;
+    -fx-padding: 6 0 0 0;
+}
+
+/* ── TitledPane ── */
+.titled-pane {
+    -fx-text-fill: #8b90b8;
+    -fx-font-family: "Consolas", monospace;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #1a1d2e;
+    -fx-border-color: #3a3f6b;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 6 10 6 10;
+}
+
+.titled-pane > .title > .text {
+    -fx-fill: #5e81f4;
+    -fx-font-size: 11px;
+    -fx-font-family: "Consolas", monospace;
+}
+
+.titled-pane > .title > .arrow-button > .arrow {
+    -fx-background-color: #5e81f4;
+}
+
+.titled-pane > *.content {
+    -fx-background-color: #20233a;
+    -fx-border-color: #3a3f6b;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8;
+}
+
+/* ── GridPane inside TitledPane ── */
+.grid-pane {
+    -fx-background-color: transparent;
+}
+
+/* ── ScrollPane (canvas area) ── */
+.scroll-pane {
+    -fx-background-color: #12141f;
+    -fx-background: #12141f;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #12141f;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: #1a1d2e;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #3a3f6b;
+    -fx-background-radius: 4;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #5e81f4;
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button {
+    -fx-background-color: #1a1d2e;
+}
+
+/* ── Alert dialogs ── */
+.dialog-pane {
+    -fx-background-color: #252840;
+    -fx-border-color: #3a3f6b;
+}
+
+.dialog-pane .content.label {
+    -fx-text-fill: #e8eaf6;
+    -fx-font-size: 12px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #1a1d2e;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: #f46e5e;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: #2e3257;
+    -fx-text-fill: #c5c8e8;
+}

@@ -46,12 +46,15 @@ public class WindowingController
     
     public WindowingController(Stage stage)
     {
+        stage.setResizable(false);
+        
         this.stage = stage;
     }
     
     public BorderPane buildUI() {
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
+        root.setPrefSize(1000, 600);
         
         // control panel
         VBox controlPanel = new VBox(12);
@@ -101,7 +104,10 @@ public class WindowingController
         ScrollPane scrollPane = new ScrollPane(canvas);
         scrollPane.setPannable(true);
         root.setCenter(scrollPane);
-        
+
+        btnLoad.getStyleClass().add("button-load");
+        statusLabel.getStyleClass().add("label-status");
+
         return root;
     }
     
@@ -111,7 +117,6 @@ public class WindowingController
         fc.setTitle("Choose a file to load");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt", "*.seg", "*.*"));
         File file = fc.showOpenDialog(stage);
-        //File file = (new File(System.getProperty("user.dir") + "/src/main/java/be/ac/umons/exemples/1000.txt")).getAbsoluteFile();
         if (file == null) return;
 
         try {
@@ -130,6 +135,9 @@ public class WindowingController
         }
     }
     
+    private void displaySegments(List<Segment> segments, Window queryWindow) {
+        displaySegments(segments, new ArrayList<>(), queryWindow);
+    }
     
     private void displaySegments(List<Segment> horizontalSegments, List<Segment> verticalSegments, Window queryWindow) {
         if (horizontalSegments == null || verticalSegments == null ||boundingWindow == null) {
@@ -142,6 +150,10 @@ public class WindowingController
         double w = canvas.getWidth();
         double h = canvas.getHeight();
 
+        gc.clearRect(0, 0, w, h);
+        gc.setFill(Color.web("#12141f"));
+        gc.fillRect(0, 0, w, h);
+
         Window bw = boundingWindow;
         double rangeX = bw.xMax - bw.xMin;
         double rangeY = bw.yMax - bw.yMin;
@@ -149,32 +161,33 @@ public class WindowingController
         double offsetX =  (w- rangeX * scale) / 2;
         double offsetY =  (h - rangeY * scale) / 2;
 
-        
-        gc.setStroke(Color.LIGHTGRAY);
-        gc.setFill(Color.LIGHTGRAY);
-        gc.setLineWidth(0.5);
+
+
+        gc.setFill(Color.web("#1a1d2e"));
         gc.fillRect(offsetX, offsetY, rangeX * scale, rangeY * scale);
 
-        if (queryWindow != null) {
-            System.out.println(queryWindow.xMin + " " + queryWindow.xMax + " " + queryWindow.yMin + " " + queryWindow.yMax);
-            double rx = toScreenX(queryWindow.xMin, bw, offsetX, scale);
-            double ry = toScreenY(queryWindow.yMax, bw, offsetY, scale);
-            double rw = (queryWindow.xMax - queryWindow.xMin) * scale;
-            double rh = (queryWindow.yMax - queryWindow.yMin) * scale;
-            gc.setFill(new Color(0.2, 0.5, 1.0, 0.1));
-            gc.fillRect(rx, ry, rw, rh);
-            gc.setStroke(Color.ROYALBLUE);
-            gc.setLineWidth(1.5);
-            gc.strokeRect(rx, ry, rw, rh);
-        }
 
-        gc.setStroke(Color.TOMATO);
-        gc.setLineWidth(1.5);
+        gc.setStroke(Color.web("#5e81f4"));
+        gc.setLineWidth(1.2);
         for (Segment hs : horizontalSegments) {
             drawSegment(gc, bw, offsetX, offsetY, hs.getP1(), hs.getP2(), scale);
         }
         for (Segment vs : verticalSegments) {
             drawSegment(gc, bw, offsetX, offsetY, vs.getP1(), vs.getP2(), scale);
+        }
+        
+
+        if (queryWindow != null) {
+            double rx = toScreenX(queryWindow.xMin, bw, offsetX, scale);
+            double ry = toScreenY(queryWindow.yMax, bw, offsetY, scale);
+            double rw = (queryWindow.xMax - queryWindow.xMin) * scale;
+            double rh = (queryWindow.yMax - queryWindow.yMin) * scale;
+            gc.setFill(new Color(0.96, 0.64, 0.37, 0.15));
+            gc.fillRect(rx, ry, rw, rh);
+
+            gc.setStroke(new Color(0.96, 0.64, 0.37, 1.0));
+            gc.setLineWidth(1.5);
+            gc.strokeRect(rx, ry, rw, rh);
         }
     }
 
@@ -184,15 +197,18 @@ public class WindowingController
         double xMax = parseOrDefault(tfMaxX.getText(), Double.POSITIVE_INFINITY);
         double yMin = parseOrDefault(tfMinY.getText(), Double.NEGATIVE_INFINITY);
         double yMax = parseOrDefault(tfMaxY.getText(),Double.POSITIVE_INFINITY);
-
-        System.out.println(xMin + " " + xMax + " " + yMin + " " + yMax);
+        
 
         Window queryWin = new Window(xMin, xMax, yMin, yMax);
         if (!queryWin.isValid()) {
             showError("invalid window", "look is  xMin < xMax and yMin < yMax.");
-            return;
+        }else {
+            List<Segment> res = windowerEngine.query(queryWin);
+            //displaySegments(horizontalSegments, verticalSegments, queryWin);
+            System.out.println(res);
+            displaySegments(res, queryWin);
         }
-        displaySegments(horizontalSegments,verticalSegments, queryWin);
+
     }
 
     private double toScreenX(double x, Window bw, double offsetX, double scale) {
@@ -202,6 +218,7 @@ public class WindowingController
     private double toScreenY(double y, Window bw, double offsetY, double scale) {
         return offsetY + (bw.yMax - y) * scale;
     }
+    
     private double parseOrDefault(String text, double def) {
         if (text == null || text.isBlank()) return def;
         return Double.parseDouble(text.trim());
@@ -214,6 +231,7 @@ public class WindowingController
         double sy2 = toScreenY(p2.getY(),bw, offsetY, scale);
         gc.strokeLine(sx1, sy1, sx2, sy2);
     }
+    
     private void showError(String title, String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
