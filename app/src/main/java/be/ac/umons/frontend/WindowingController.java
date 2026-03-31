@@ -25,6 +25,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that build and control the interface for vizualise segment
+ */
 public class WindowingController
 {
     // model
@@ -50,7 +53,11 @@ public class WindowingController
         
         this.stage = stage;
     }
-    
+
+    /**
+     * function use for generate an interface to vizualise segment and the query results
+     * @return void
+     */
     public BorderPane buildUI() {
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
@@ -210,7 +217,7 @@ public class WindowingController
         }
 
     }
-
+    
     private double toScreenX(double x, Window bw, double offsetX, double scale) {
         return offsetX + (x - bw.xMin) * scale;
     }

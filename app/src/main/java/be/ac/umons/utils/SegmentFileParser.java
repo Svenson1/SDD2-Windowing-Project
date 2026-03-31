@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.*;
 
+/**
+ * Class use to parse a file and use this metric for the windowing exercises
+ */
 public class SegmentFileParser {
 
     /**
@@ -28,7 +31,13 @@ public class SegmentFileParser {
             this.boundingWindow = bw;
         }
     }
-    
+
+    /**
+     * function use for parsing the document
+     * @param file the file need to follow a expected structure
+     * @return PareseResult an intern class use for the date extract
+     * @throws Exception
+     */
     public static ParseResult parse(File file) throws Exception{
         List<Segment> horizontalSegments = new ArrayList<>();
         List<Segment> verticalSegments = new ArrayList<>();
