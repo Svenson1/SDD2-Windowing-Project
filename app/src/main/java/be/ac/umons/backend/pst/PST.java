@@ -166,9 +166,9 @@ public abstract class PST {
         PstNode vSplit;
         while (root != null) {
             testAndReport(root, heapMin, heapMax, sortMin, sortMax, res);
-            if (sortMin <= root.getYMid() && sortMax <= root.getYMid()) {
+            if (sortMin <= root.getYMid() && sortMax < root.getYMid()) {
                 root = root.getLeft();
-            } else if (sortMin > root.getYMid() && sortMax > root.getYMid()) {
+            } else if (sortMin > root.getYMid() && sortMax >= root.getYMid()) {
                 root = root.getRight();
             } else {
                 break;
@@ -195,7 +195,7 @@ public abstract class PST {
         v = vSplit.getRight();
         while (v != null) {
             testAndReport(v, heapMin, heapMax, sortMin, sortMax, res);
-            if (v.getYMid() < sortMax) {
+            if (v.getYMid() <= sortMax) {
                 // path goes right → left subtree entirely in sort range
                 reportInSubTree(v.getLeft(), heapMin, heapMax, res);
                 v = v.getRight();
