@@ -192,9 +192,6 @@ public class WindowingController
             gc.setFill(new Color(0.96, 0.64, 0.37, 0.15));
             gc.fillRect(rx, ry, rw, rh);
 
-            gc.setStroke(new Color(0.96, 0.64, 0.37, 1.0));
-            gc.setLineWidth(1.5);
-            gc.strokeRect(rx, ry, rw, rh);
         }
     }
 
