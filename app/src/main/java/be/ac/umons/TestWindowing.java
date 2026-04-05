@@ -8,15 +8,28 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Entry point of the windowing application.
+ * Launches a JavaFX window that visualizes axis-aligned segments using a Priority Search Tree.
+ */
 public class TestWindowing extends Application {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
+    /**
+     * Launches the JavaFX application.
+     *
+     * @param args command-line arguments passed to the application
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Initializes and displays the primary stage.
+     * Builds the UI via WindowingController, applies the stylesheet, and shows the window.
+     *
+     * @param primaryStage the primary stage provided by the JavaFX runtime
+     * @throws Exception if the stylesheet resource cannot be loaded
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         WindowingController controller = new WindowingController(primaryStage);

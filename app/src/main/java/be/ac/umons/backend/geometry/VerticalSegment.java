@@ -7,7 +7,8 @@ package be.ac.umons.backend.geometry;
 public class VerticalSegment extends Segment {
 
     /**
-     *
+     *Creates a vertical segment with the given endpoints.
+     * 
      * @param p1 the first extremity point
      * @param p2 the second extremity point
      */
@@ -16,8 +17,9 @@ public class VerticalSegment extends Segment {
     }
 
     /**
+     * Returns the bottom endpoint of this segment, i.e. the one with the lower y coordinate.
      *
-     * @return the point that is at the bottom of the segment ie. with the lower y
+     * @return the bottom endpoint
      */
     @Override
     public Point getStoredPoint() {
@@ -28,8 +30,9 @@ public class VerticalSegment extends Segment {
     }
 
     /**
+     * Returns the top endpoint of this segment, i.e. the one with the higher y coordinate.
      *
-     * @return the point that is at the top of the segment ie. with the higher y
+     * @return the top endpoint
      */
     @Override
     public Point getOtherPoint() {

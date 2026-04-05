@@ -26,7 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that build and control the interface for vizualise segment
+ * Controls the user interface for visualizing axis-aligned segments and applying windowing queries.
+ * Handles file loading, segment rendering on a canvas, and query window display.
  */
 public class WindowingController
 {
@@ -46,7 +47,12 @@ public class WindowingController
     private final TextField tfMaxX = new TextField();
     private final TextField tfMinY = new TextField();
     private final TextField tfMaxY = new TextField();
-    
+
+    /**
+     * Creates a controller bound to the given JavaFX stage.
+     *
+     * @param stage the primary stage used for file dialogs
+     */
     public WindowingController(Stage stage)
     {
         stage.setResizable(false);
@@ -55,8 +61,11 @@ public class WindowingController
     }
 
     /**
-     * function use for generate an interface to vizualise segment and the query results
-     * @return void
+     * Builds and returns the root layout of the user interface.
+     * The layout includes a control panel on the left with load, display, and query controls,
+     * and a scrollable canvas on the right for rendering segments.
+     *
+     * @return the root BorderPane of the interface
      */
     public BorderPane buildUI() {
         BorderPane root = new BorderPane();
@@ -117,8 +126,12 @@ public class WindowingController
 
         return root;
     }
-    
 
+    /**
+     * Opens a file chooser dialog and loads segments from the selected file.
+     * On success, initializes the windowing engine and displays all segments.
+     * On failure, shows an error dialog.
+     */
     private void loadFile() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Choose a file to load");
@@ -142,10 +155,19 @@ public class WindowingController
         }
     }
     
+    
     private void displaySegments(List<Segment> segments, Window queryWindow) {
         displaySegments(segments, new ArrayList<>(), queryWindow);
     }
-    
+
+    /**
+     * Renders the given horizontal and vertical segments on the canvas.
+     * If a query window is provided, it is drawn as a highlighted rectangle over the canvas.
+     *
+     * @param horizontalSegments the horizontal segments to draw
+     * @param verticalSegments   the vertical segments to draw
+     * @param queryWindow        the query window to highlight, or null to skip
+     */
     private void displaySegments(List<Segment> horizontalSegments, List<Segment> verticalSegments, Window queryWindow) {
         if (horizontalSegments == null || verticalSegments == null ||boundingWindow == null) {
             statusLabel.setText("No segments loaded");
@@ -195,7 +217,11 @@ public class WindowingController
         }
     }
 
-
+    /**
+     * Reads the query bounds from the input fields, runs the windowing query,
+     * and displays the resulting segments along with the query window.
+     * Shows an error dialog if the window bounds are invalid.
+     */
     private void applyWindowing() {
         double xMin = parseOrDefault(tfMinX.getText(), Double.NEGATIVE_INFINITY);
         double xMax = parseOrDefault(tfMaxX.getText(), Double.POSITIVE_INFINITY);
@@ -214,20 +240,57 @@ public class WindowingController
         }
 
     }
-    
+
+    /**
+     * Converts a world x coordinate to a screen x coordinate.
+     *
+     * @param x       the world x coordinate
+     * @param bw      the bounding window used for scaling
+     * @param offsetX the horizontal canvas offset
+     * @param scale   the scale factor
+     * @return the screen x coordinate
+     */
     private double toScreenX(double x, Window bw, double offsetX, double scale) {
         return offsetX + (x - bw.xMin) * scale;
     }
 
+    /**
+     * Converts a world y coordinate to a screen y coordinate.
+     * The y axis is flipped so that higher world values appear higher on screen.
+     *
+     * @param y       the world y coordinate
+     * @param bw      the bounding window used for scaling
+     * @param offsetY the vertical canvas offset
+     * @param scale   the scale factor
+     * @return the screen y coordinate
+     */
     private double toScreenY(double y, Window bw, double offsetY, double scale) {
         return offsetY + (bw.yMax - y) * scale;
     }
-    
+
+    /**
+     * Parses a string as a double, returning a default value if the string is null or blank.
+     *
+     * @param text the string to parse
+     * @param def  the default value to return if parsing is not possible
+     * @return the parsed value, or def if the string is null or blank
+     */
     private double parseOrDefault(String text, double def) {
         if (text == null || text.isBlank()) return def;
         return Double.parseDouble(text.trim());
     }
 
+    /**
+     * Draws a single segment on the canvas by converting both endpoints to screen coordinates.
+     *
+     * @param gc      the graphics context to draw on
+     * @param bw      the bounding window used for scaling
+     * @param offsetX the horizontal canvas offset
+     * @param offsetY the vertical canvas offset
+     * @param p1      the first endpoint of the segment
+     * @param p2      the second endpoint of the segment
+     * @param scale   the scale factor
+     */
     private void drawSegment(GraphicsContext gc, Window bw, double offsetX, double offsetY, Point p1, Point p2, double scale) {
         double sx1 = toScreenX(p1.getX(),bw, offsetX, scale);
         double sy1 = toScreenY(p1.getY(),bw, offsetY, scale);
@@ -235,7 +298,13 @@ public class WindowingController
         double sy2 = toScreenY(p2.getY(),bw, offsetY, scale);
         gc.strokeLine(sx1, sy1, sx2, sy2);
     }
-    
+
+    /**
+     * Displays an error dialog with the given title and message.
+     *
+     * @param title the dialog title
+     * @param msg   the error message
+     */
     private void showError(String title, String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
