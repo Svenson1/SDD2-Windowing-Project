@@ -1,8 +1,4 @@
-/* =========================================================
-   Windowing PST — Dark Tech Theme
-   ========================================================= */
 
-/* ── Palette ── */
 .root {
     -fx-base: #1a1d2e;
     -fx-background: #1a1d2e;
@@ -24,24 +20,21 @@
     -fx-font-size: 12px;
 }
 
-/* ── Root / Scene ── */
 .root {
     -fx-background-color: derive(#1a1d2e, 0%);
 }
 
-/* ── BorderPane / VBox panels ── */
 .border-pane {
     -fx-background-color: #1a1d2e;
 }
 
-/* ── Control Panel (VBox gauche) ── */
+
 .vbox {
     -fx-background-color: #20233a;
     -fx-border-color: #3a3f6b;
     -fx-border-width: 0 1 0 0;
 }
 
-/* ── Buttons ── */
 .button {
     -fx-background-color: #2e3257;
     -fx-text-fill: #c5c8e8;
@@ -68,7 +61,6 @@
     -fx-effect: dropshadow(gaussian, #5e81f466, 4, 0.2, 0, 0);
 }
 
-/* Bouton Load — accent chaud */
 .button-load {
     -fx-background-color: #2e3a52;
     -fx-border-color: #5e9ef4;
@@ -81,7 +73,6 @@
     -fx-effect: dropshadow(gaussian, #5e9ef488, 12, 0.5, 0, 0);
 }
 
-/* ── TextFields ── */
 .text-field {
     -fx-background-color: #1a1d2e;
     -fx-border-color: #3a3f6b;
@@ -100,21 +91,19 @@
     -fx-background-color: #1f2240;
 }
 
-/* ── Labels ── */
 .label {
     -fx-text-fill: #8b90b8;
     -fx-font-family: "Consolas", monospace;
     -fx-font-size: 11px;
 }
 
-/* Status label */
 .label-status {
     -fx-text-fill: #5e81f4;
     -fx-font-size: 11px;
     -fx-padding: 6 0 0 0;
 }
 
-/* ── TitledPane ── */
+
 .titled-pane {
     -fx-text-fill: #8b90b8;
     -fx-font-family: "Consolas", monospace;
@@ -144,12 +133,11 @@
     -fx-padding: 8;
 }
 
-/* ── GridPane inside TitledPane ── */
 .grid-pane {
     -fx-background-color: transparent;
 }
 
-/* ── ScrollPane (canvas area) ── */
+
 .scroll-pane {
     -fx-background-color: #12141f;
     -fx-background: #12141f;
@@ -178,7 +166,7 @@
     -fx-background-color: #1a1d2e;
 }
 
-/* ── Alert dialogs ── */
+
 .dialog-pane {
     -fx-background-color: #252840;
     -fx-border-color: #3a3f6b;
