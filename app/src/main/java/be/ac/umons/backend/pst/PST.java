@@ -16,7 +16,7 @@ import java.util.List;
  * Construction is done in O(n log n) via a single sort before recursion.
  * Each recursive call then costs O(n) only.
  *
- * <p>Convention : sortCoord <= yMid goes left, sortCoord > yMid goes right.</p>
+ * <p>Convention : sortCoord {@code <= yMid} goes left, sortCoord > yMid goes right.</p>
  */
 public abstract class PST {
 
