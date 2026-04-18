@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * Engine that applies windowing queries to a set of axis-aligned segments.
- *
  * This engine relies on two Priority Search Trees (PST):
  * one for horizontal segments and one for vertical segments.
  * This allows efficient querying in O(log n + k), where k is the number

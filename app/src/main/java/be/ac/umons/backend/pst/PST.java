@@ -97,7 +97,6 @@ public abstract class PST {
                 min = s;
             }
         }
-
         // 2. build remaining list
         List<Segment> remaining = new ArrayList<>(segments);
         remaining.remove(min);
@@ -206,7 +205,7 @@ public abstract class PST {
     }
 
     /**
-     * Reports all segments in the subtree whose heap coordinate is at most heapMax.
+     * Reports all segments in the subtree whose heap coordinate is at most heapMax.d
      * heapMin is verified via the other endpoint.
      *
      * @param root    root of the subtree
